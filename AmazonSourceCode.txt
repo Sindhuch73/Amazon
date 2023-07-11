@@ -1,0 +1,59 @@
+package demo;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class AmazonDemo {
+	public static void main(String[] args) throws InterruptedException {
+		// 1) Open the browser
+		ChromeDriver driver = new ChromeDriver();
+		
+		// 2) maximize it
+		driver.manage().window().maximize();
+		
+		// 3)Navigate to application
+		driver.get("https://www.amazon.in/");
+		
+		//4) Hover the pointer over 'mobiles'
+		WebElement Mobiles = driver.findElement(By.linkText("Mobiles"));
+		Actions actions = new Actions(driver);
+		actions.moveToElement(Mobiles).build().perform();
+	
+		Thread.sleep(3000);
+		
+		driver.findElement(By.linkText("Mobiles")).click();
+		driver.findElement(By.linkText("Mobiles & Accessories")).click();
+		driver.findElement(By.linkText("Apple")).click();
+		
+		driver.findElement(By.xpath("//*[@id=\"search\"]/div[1]/div[1]/div/span[1]/div[1]/div[5]/div/div/div/div/div[1]/span/a/div")).click();
+		
+		
+		ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1));
+	
+		driver.findElement(By.id("buy-now-button")).click();
+	try {
+		System.out.println("Item Found");
+	}catch (NoSuchElementException e) {
+		System.out.println("Item doesn't exist");
+		
+		
+	}
+		
+		driver.quit();
+		
+		
+		
+		
+		
+       
+}
+}
